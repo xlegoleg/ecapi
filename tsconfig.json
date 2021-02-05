@@ -5,6 +5,13 @@
     "rootDir": "./",
     "outDir": "./build",
     "esModuleInterop": true,
-    "strict": true
-  }
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "@interfaces/*": ["src/interfaces/*"],
+      "@controllers/*": ["src/controllers/*"],
+      "@models/*": ["src/models/*"]
+    }
+  },
+  "typeRoots": ["../node_modules/@types"],
 }

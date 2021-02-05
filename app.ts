@@ -1,10 +1,33 @@
 import express from 'express';
+import bodyParser from 'body-parser';
+import IController from '@interfaces/eva/ControllerInterface';
 
-const app = express(); 
-const PORT = process.env.API_BASE_PORT || 3000;
+class App {
+  public app: express.Application;
+  public port: Number | String;
 
-app.get('/', (req, res) => res.send('Express + TypeScript Server'));
+  constructor(controllers :IController[], port: Number | String) {
+    this.app = express();
+    this.port = port;
 
-app.listen(PORT, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
-});
+    this.initControllers(controllers);
+  }
+
+  private initControllers(controllers: IController[]): void {
+    controllers.forEach((controller: IController) => {
+      this.app.use('/', controller.router);
+    });
+  }
+
+  private initModules(): void {
+    this.app.use(bodyParser.json());
+  }
+
+  public listen(): void {
+    this.app.listen(this.port, () => {
+      console.log(`⚡️[server]: Server is running at https://localhost:${this.port}`);
+    });
+  }
+}
+
+export default App;
