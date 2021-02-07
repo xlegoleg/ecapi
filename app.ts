@@ -10,17 +10,21 @@ class App {
     this.app = express();
     this.port = port;
 
+    this.initModules();
     this.initControllers(controllers);
   }
 
   private initControllers(controllers: IController[]): void {
     controllers.forEach((controller: IController) => {
-      this.app.use('/', controller.router);
+      this.app.use('/', controller.router());
     });
   }
 
   private initModules(): void {
     this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({
+      extended: true
+    }));
   }
 
   public listen(): void {

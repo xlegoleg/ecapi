@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { Document, Model } from 'mongoose';
 import IUser from '@interfaces/base/UserInterface';
 
 const UserSchema = new mongoose.Schema({
@@ -33,6 +33,6 @@ const UserSchema = new mongoose.Schema({
 { toJSON: { virtuals: true }, toObject: { virtuals: true }
 });
 
-const UserModel = mongoose.model<IUser & mongoose.Document>('User', UserSchema);
+const UserModel :Model<Document<IUser>> = mongoose.model('User', UserSchema);
 
 export default UserModel;
