@@ -4,7 +4,7 @@ import IController from '@interfaces/eva/ControllerInterface';
 import express, { Router } from 'express'
 
 class UserController implements IController {
-  private _path: String = '/users';
+  private _path: String = '/api/users';
   private _router: Router = express.Router();
   private _model = UserModel;
 

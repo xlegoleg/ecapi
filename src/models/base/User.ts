@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
   role: {
     type: String,
     default: 'buyer',
-    enum: ['buyer', 'seller', 'admin']
+    enum: ['buyer', 'admin']
   },
   location: {
     type: String
