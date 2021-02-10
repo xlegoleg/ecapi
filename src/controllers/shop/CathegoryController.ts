@@ -22,10 +22,10 @@ class CathegoryController implements IController {
 
   private initRoutes(): void {
     this._router.get(`${this._path}`, this.getCathegories);
-    this._router.get(`${this._path}/:id`, this.getUserById);
-    this._router.patch(`${this._path}/:id`, this.updateUser);
-    this._router.delete(`${this._path}/:id`, this.deleteUser);
-    this._router.post(`${this._path}`, this.createUser);
+    this._router.get(`${this._path}/:id`, this.getCathegoryById);
+    this._router.patch(`${this._path}/:id`, this.updateCathegory);
+    this._router.delete(`${this._path}/:id`, this.deleteCathegory);
+    this._router.post(`${this._path}`, this.createCathegory);
   }
 
   public getCathegories = async (req: express.Request, resp: express.Response): Promise<void> => {
