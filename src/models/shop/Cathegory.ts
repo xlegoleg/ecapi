@@ -16,7 +16,7 @@ const CathegorySchema = new mongoose.Schema({
     type: [mongoose.Schema.Types.ObjectId]
   },
 },
-{ toJSON: { virtuals: true }, toObject: { virtuals: true }
+{ toJSON: { virtuals: true, versionKey: false }, toObject: { virtuals: true, versionKey: false }
 });
 
 const CathegoryModel :Model<Document<ICathegory>> = mongoose.model('Cathegory', CathegorySchema);

@@ -1,5 +1,6 @@
-import { Document } from 'mongoose';
+import { Document, ObjectId } from 'mongoose';
 declare interface IUser extends Document {
+  id: ObjectId;
   name: String;
   email: String;
   password: String;
