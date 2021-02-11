@@ -24,6 +24,11 @@ const ProductSchema = new mongoose.Schema({
       type: Number
     }
   },
+  quantity: {
+    type: Number,
+    default: 0,
+    required: true
+  },
   inSale: {
     type: Boolean,
     default: false
@@ -34,6 +39,8 @@ const ProductSchema = new mongoose.Schema({
   specifications: {
     type: [mongoose.Types.ObjectId]
   }
+},
+{ toJSON: { virtuals: true, versionKey: false }, toObject: { virtuals: true, versionKey: false }
 });
 
 const ProductModel :Model<Document<IProduct>> = mongoose.model('Product', ProductSchema);
