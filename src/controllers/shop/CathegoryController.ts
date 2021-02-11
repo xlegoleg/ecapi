@@ -57,7 +57,7 @@ class CathegoryController implements IController {
       const createdCathegory = await this._model.create(data);
       resp.status(200).send({
         message: "Success",
-        user: createdCathegory
+        cathegory: createdCathegory
       });
     }
     catch (e) {

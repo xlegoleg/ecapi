@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema({
     default: Date.now()
   }
 }, 
-{ toJSON: { virtuals: true }, toObject: { virtuals: true }
+{ toJSON: { virtuals: true, versionKey: false }, toObject: { virtuals: true, versionKey: false }
 });
 
 const UserModel :Model<Document<IUser>> = mongoose.model('User', UserSchema);
