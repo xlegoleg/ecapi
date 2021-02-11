@@ -8,7 +8,8 @@ declare interface IProduct extends Document {
   price: {
     list_price: Number;
     sale_price: Number;
-  }
+  },
+  quantity: Number;
   inSale: boolean;
   image: String;
   specifications: ObjectId[];
