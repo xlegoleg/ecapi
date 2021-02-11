@@ -11,6 +11,7 @@ declare interface IProduct extends Document {
   }
   inSale: boolean;
   image: String;
+  specifications: ObjectId[];
 }
 
-export default IProduct
+export default IProduct;
