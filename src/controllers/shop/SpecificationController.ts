@@ -1,7 +1,7 @@
 import SpecificationModel from '@models/shop/Specification';
-import ISpecification from '@interfaces/shop/SpecificationInterface'
+import ISpecification from '@interfaces/shop/SpecificationInterface';
 import IController from '@interfaces/eva/ControllerInterface';
-import express, { Router } from 'express'
+import express, { Router } from 'express';
 
 class SpecificationController implements IController {
   private _path: String = '/api/specifications';

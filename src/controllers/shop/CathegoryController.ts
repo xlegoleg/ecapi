@@ -1,7 +1,7 @@
 import CathegoryModel from '@models/shop/Cathegory';
-import ICathegory from '@interfaces/shop/CathegoryInterface'
+import ICathegory from '@interfaces/shop/CathegoryInterface';
 import IController from '@interfaces/eva/ControllerInterface';
-import express, { Router } from 'express'
+import express, { Router } from 'express';
 
 class CathegoryController implements IController {
   private _path: String = '/api/cathegories';

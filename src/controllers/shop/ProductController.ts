@@ -1,7 +1,7 @@
 import ProductModel from '@models/shop/Product';
-import IProduct from '@interfaces/shop/ProductInterface'
+import IProduct from '@interfaces/shop/ProductInterface';
 import IController from '@interfaces/eva/ControllerInterface';
-import express, { Router } from 'express'
+import express, { Router } from 'express';
 
 class ProductController implements IController {
   private _path: String = '/api/products';
