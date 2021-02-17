@@ -27,7 +27,8 @@ class CartController implements IController {
     this._router.patch(`${this._path}/:id`, this.updateCart);
     this._router.delete(`${this._path}/:id`, this.deleteCart);
     this._router.post(`${this._path}`, this.createCart);
-    this._router.post(`${this._path}/add-item`, this.addToCart)
+    this._router.post(`${this._path}/add-item`, this.addToCart);
+    this._router.post(`${this._path}/remove-item`, this.removeFromCart);
   }
 
   public addToCart = async (req: express.Request, resp: express.Response): Promise<void> => {
@@ -73,6 +74,27 @@ class CartController implements IController {
     catch (e) {
       console.log(e);
       resp.status(500).send(`An error occurred while added prodict ${productId} to cart`);
+    }
+  }
+
+  public removeFromCart = async (req: express.Request, resp: express.Response): Promise<void> => {
+    const { userId, productId } = req.body;
+    try {
+      let cart: ICart = await this._model.findOne({ user: userId }) as ICart;
+      if (cart) {
+        cart.items = cart.items.filter((item) => item._id !== productId);
+        cart = await cart.save();
+        resp.status(201).send({
+          message: "Cart updated",
+          cart: cart
+        });
+      } else {
+        resp.status(404).send(`Can't find user ${userId} cart`);
+      }
+    }
+    catch (e) {
+      console.log(e);
+      resp.status(500).send(`An error occurred while removing prodict ${productId} from cart`);
     }
   }
 
