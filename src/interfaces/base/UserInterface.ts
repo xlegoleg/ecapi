@@ -1,12 +1,14 @@
-import { Document, ObjectId } from 'mongoose';
-declare interface IUser extends Document {
+import { Document, ObjectId, Model } from 'mongoose';
+export interface IUser extends Document {
   id: ObjectId;
-  name: String;
-  email: String;
-  password: String;
-  role: String;
-  location: String;
+  name: string;
+  email:string;
+  password: string;
+  role: string;
+  location: string;
   created: Date;
 }
 
-export default IUser;
+export interface IUserModel extends Model<IUser> {
+  verifyPassword(password: string): Promise<boolean>;
+}

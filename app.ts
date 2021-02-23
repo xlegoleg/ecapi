@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import IController from '@interfaces/eva/ControllerInterface';
+import baseErrorHandler from '@middleware/BaseErrorHandler';
 
 class App {
   public app: express.Application;
@@ -11,6 +12,7 @@ class App {
     this.port = port;
 
     this.initModules();
+    this.initMiddleware();
     this.initControllers(controllers);
   }
 
@@ -25,6 +27,10 @@ class App {
     this.app.use(bodyParser.urlencoded({
       extended: true
     }));
+  }
+
+  private initMiddleware(): void {
+    this.app.use(baseErrorHandler);
   }
 
   public listen(): void {

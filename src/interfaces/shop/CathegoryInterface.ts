@@ -2,8 +2,8 @@ import { ObjectId, Document } from 'mongoose'
 
 declare interface ICathegory extends Document {
   id: ObjectId;
-  title: String;
-  description: String;
+  title: string;
+  description: string;
   parents?: ObjectId[];
 }
 

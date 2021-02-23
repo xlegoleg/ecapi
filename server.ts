@@ -6,6 +6,7 @@ import UserController from '@controllers/base/UserController';
 import CathegoryController from '@controllers/shop/CathegoryController';
 import SpecificationController from '@controllers/shop/SpecificationController';
 import ProductController from '@controllers/shop/ProductController';
+import CartController from '@controllers/shop/CartController';
 
 dotenv.config({
   path: './config/config.env'
@@ -18,6 +19,8 @@ const app = new App([
   new CathegoryController(),
   new ProductController(),
   new SpecificationController(),
+  new CartController()
+
 ], PORT);
 
 DB_CONNECTOR();

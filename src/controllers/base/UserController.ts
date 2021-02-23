@@ -1,10 +1,10 @@
 import UserModel from '@models/base/User';
-import IUser from '@interfaces/base/UserInterface'
+import { IUser } from '@interfaces/base/UserInterface'
 import IController from '@interfaces/eva/ControllerInterface';
 import express, { Router } from 'express'
 
 class UserController implements IController {
-  private _path: String = '/api/users';
+  private _path: string = '/api/users';
   private _router: Router = express.Router();
   private _model = UserModel;
 
@@ -12,7 +12,7 @@ class UserController implements IController {
     this.initRoutes();
   }
 
-  public path(): String {
+  public path(): string {
     return this._path;
   }
 

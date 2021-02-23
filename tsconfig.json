@@ -10,7 +10,10 @@
     "paths": {
       "@interfaces/*": ["src/interfaces/*"],
       "@controllers/*": ["src/controllers/*"],
-      "@models/*": ["src/models/*"]
+      "@models/*": ["src/models/*"],
+      "@utils/*": ["src/utils/*"],
+      "@middleware/*": ["src/middleware/*"],
+      "@common/*": ["src/common/*"]
     }
   },
   "typeRoots": ["../node_modules/@types"],
