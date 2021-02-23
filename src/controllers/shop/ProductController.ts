@@ -4,7 +4,7 @@ import IController from '@interfaces/eva/ControllerInterface';
 import express, { Router } from 'express';
 
 class ProductController implements IController {
-  private _path: String = '/api/products';
+  private _path: string = '/api/products';
   private _router: Router = express.Router();
   private _model = ProductModel;
 
@@ -12,7 +12,7 @@ class ProductController implements IController {
     this.initRoutes();
   }
 
-  public path(): String {
+  public path(): string {
     return this._path;
   }
 

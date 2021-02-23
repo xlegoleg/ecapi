@@ -2,16 +2,16 @@ import { Document, ObjectId } from 'mongoose';
 
 declare interface IProduct extends Document {
   id: ObjectId;
-  name: String;
-  display_name: String;
+  name: string;
+  display_name: string;
   cathegories: ObjectId[];
   price: {
-    list_price: Number;
-    sale_price: Number;
+    list_price: number;
+    sale_price: number;
   },
-  quantity: Number;
+  quantity: number;
   inSale: boolean;
-  image: String;
+  image: string;
   specifications: ObjectId[];
 }
 

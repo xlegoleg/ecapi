@@ -2,14 +2,14 @@ import { ObjectId, Document } from 'mongoose';
 
 export interface ICartItem {
   _id: ObjectId;
-  price: Number;
-  quantity: Number;
+  price: number;
+  quantity: number;
 }
 
 declare interface ICart extends Document {
   id: ObjectId;
-  last_modified: Date | String;
-  status: String;
+  last_modified: Date | string;
+  status: string;
   items: ICartItem[];
   user: ObjectId;
 }

@@ -4,7 +4,7 @@ import IController from '@interfaces/eva/ControllerInterface';
 import express, { Router } from 'express';
 
 class SpecificationController implements IController {
-  private _path: String = '/api/specifications';
+  private _path: string = '/api/specifications';
   private _router: Router = express.Router();
   private _model = SpecificationModel;
 
@@ -12,7 +12,7 @@ class SpecificationController implements IController {
     this.initRoutes();
   }
 
-  public path(): String {
+  public path(): string {
     return this._path;
   }
 

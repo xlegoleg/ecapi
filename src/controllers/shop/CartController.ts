@@ -6,7 +6,7 @@ import { Document, now } from 'mongoose';
 import { convertDateFromTimestamp } from '@utils/dates';
 
 class CartController implements IController {
-  private _path: String = '/api/carts';
+  private _path: string = '/api/carts';
   private _router: Router = express.Router();
   private _model = CartModel;
 
@@ -14,7 +14,7 @@ class CartController implements IController {
     this.initRoutes();
   }
 
-  public path(): String {
+  public path(): string {
     return this._path;
   }
 
@@ -49,7 +49,7 @@ class CartController implements IController {
             quantity: quantity
           });
         }
-        cart.last_modified = convertDateFromTimestamp(Date.now());
+        cart.last_modified = convertDateFromTimestamp(Math.floor(Date.now()/1000),'YYYY-MM-DD');
         cart.status = 'active';
         cart = await cart.save();
         resp.status(201).send({

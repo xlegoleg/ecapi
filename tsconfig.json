@@ -11,7 +11,9 @@
       "@interfaces/*": ["src/interfaces/*"],
       "@controllers/*": ["src/controllers/*"],
       "@models/*": ["src/models/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@middleware/*": ["src/middleware/*"],
+      "@common/*": ["src/common/*"]
     }
   },
   "typeRoots": ["../node_modules/@types"],
