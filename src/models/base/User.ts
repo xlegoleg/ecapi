@@ -52,9 +52,12 @@ UserSchema.methods.verifyPassword = async function(password: string) {
 UserSchema.methods.getAuthToken = function (userId: ObjectId) {
   const secretKey: string = String(process.env.JWT_SECRET);
   const lifeCycle: string = String(process.env.JWT_LIFE);
-  return jwt.sign({ data: userId }, secretKey, {
+  return {
+    token: jwt.sign({ data: userId }, secretKey, {
+      expiresIn: lifeCycle,
+    }),
     expiresIn: lifeCycle,
-  });
+  }
 };
 
 const UserModel: Model<IUser & IUserModel> = mongoose.model<IUser & IUserModel>('User', UserSchema);

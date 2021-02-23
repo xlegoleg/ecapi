@@ -88,6 +88,11 @@ class ProductController implements IController {
       resp.status(200).send({
         message: "Successfull updated"
       });
+      // TODO try this structure
+      // const msg = new BaseMessage(200, {
+      //   message: 'User sucessful logged in',
+      //   data: existedUser
+      // }, resp);
     }
     catch (e) {
       console.log(e);

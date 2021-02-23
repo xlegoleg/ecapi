@@ -2,7 +2,8 @@ import UserModel from '@models/base/User';
 import IController from '@interfaces/eva/ControllerInterface';
 import express, { Router } from 'express'
 import bcrypt from 'bcrypt'
-import { IUser } from '@interfaces/base/UserInterface';
+import { IUser, IUserModel } from '@interfaces/base/UserInterface';
+import { ITokenObject } from '@interfaces/eva/TokenObjectInterface';
 import BaseException from '@common/exceptions/BaseException';
 import BaseMessage from '@common/messages/BaseMessage';
 
@@ -37,12 +38,7 @@ class AuthController implements IController {
         new BaseException(422, `User with ${email} is already exist`);
       }
       const createdUser = await this._model.create(userData);
-      createdUser.password = '';
-      const msg = new BaseMessage(200, {
-        message: 'User sucessful created',
-        data: createdUser,
-      }, resp);
-      msg.send();
+      this.sendResponseWithToken(createdUser, 200, resp);
     }
     catch (e) {
       new BaseException(500, `An error occured in user registration`);
@@ -57,12 +53,7 @@ class AuthController implements IController {
       if (existedUser) {
         const confirmedPass: boolean = await bcrypt.compare(password, existedUser.password);
         if (confirmedPass) {
-          existedUser.password = '';
-          const msg = new BaseMessage(200, {
-            message: 'User sucessful logged in',
-            data: existedUser
-          }, resp);
-          msg.send();
+          this.sendResponseWithToken(existedUser, 200, resp);
         } else {
           new BaseException(422, `Password for ${email} is not match`);
         }
@@ -73,6 +64,14 @@ class AuthController implements IController {
     catch (e) {
 
     }
+  }
+
+  private sendResponseWithToken(user: IUser & IUserModel, status: number, resp: express.Response) {
+    const token: ITokenObject = user.getAuthToken(user._id);
+    const createCookie = `Authorization=${token.token}; HttpOnly; Max-Age=${token.expiresIn}`;
+    user.password = '';
+    resp.setHeader('Set-Cookie', [createCookie]);
+    resp.status(status).send(user);
   }
 }
 
