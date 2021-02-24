@@ -25,8 +25,9 @@ class AuthController implements IController {
   }
 
   private initRoutes(): void {
-    this._router.get(`${this._path}/register`, this.registerUser);
-    this._router.get(`${this._path}/login`, this.loginUser);
+    this._router.post(`${this._path}/register`, this.registerUser);
+    this._router.post(`${this._path}/login`, this.loginUser);
+    this._router.post(`${this._path}/logout`, this.logoutUser);
   }
 
   private registerUser = async (req: express.Request, resp: express.Response): Promise<void> => {
@@ -60,6 +61,16 @@ class AuthController implements IController {
       } else {
         new BaseException(404, `User with ${email} not found`);
       }
+    }
+    catch (e) {
+
+    }
+  }
+
+  private logoutUser = async (req: express.Request, resp: express.Response): Promise<void> => {
+    try {
+      resp.setHeader('Set-Cookie', ['Authorization=;Max-age=0']);
+      resp.send(200);
     }
     catch (e) {
 
