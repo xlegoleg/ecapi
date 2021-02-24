@@ -2,6 +2,7 @@ import SpecificationModel from '@models/shop/Specification';
 import ISpecification from '@interfaces/shop/SpecificationInterface';
 import IController from '@interfaces/eva/ControllerInterface';
 import express, { Router } from 'express';
+import authHandler from '@middleware/BaseAuthHandler';
 
 class SpecificationController implements IController {
   private _path: string = '/api/specifications';
@@ -23,9 +24,11 @@ class SpecificationController implements IController {
   private initRoutes(): void {
     this._router.get(`${this._path}`, this.getSpecifications);
     this._router.get(`${this._path}/:id`, this.getSpecificationById);
-    this._router.patch(`${this._path}/:id`, this.updateSpecification);
-    this._router.delete(`${this._path}/:id`, this.deleteSpecification);
-    this._router.post(`${this._path}`, this.createSpecification);
+    this._router
+    .all(`${this._path}/*`, authHandler)
+    .patch(`${this._path}/:id`, this.updateSpecification)
+    .delete(`${this._path}/:id`, this.deleteSpecification)
+    .post(`${this._path}`, this.createSpecification);
   }
 
   public getSpecifications = async (req: express.Request, resp: express.Response): Promise<void> => {

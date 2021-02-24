@@ -2,6 +2,7 @@ import CathegoryModel from '@models/shop/Cathegory';
 import ICathegory from '@interfaces/shop/CathegoryInterface';
 import IController from '@interfaces/eva/ControllerInterface';
 import express, { Router } from 'express';
+import authHandler from '@middleware/BaseAuthHandler';
 
 class CathegoryController implements IController {
   private _path: string = '/api/cathegories';
@@ -23,9 +24,11 @@ class CathegoryController implements IController {
   private initRoutes(): void {
     this._router.get(`${this._path}`, this.getCathegories);
     this._router.get(`${this._path}/:id`, this.getCathegoryById);
-    this._router.patch(`${this._path}/:id`, this.updateCathegory);
-    this._router.delete(`${this._path}/:id`, this.deleteCathegory);
-    this._router.post(`${this._path}`, this.createCathegory);
+    this._router
+    .all(`${this._path}/*`, authHandler)
+    .patch(`${this._path}/:id`, this.updateCathegory)
+    .delete(`${this._path}/:id`, this.deleteCathegory)
+    .post(`${this._path}`, this.createCathegory);
   }
 
   public getCathegories = async (req: express.Request, resp: express.Response): Promise<void> => {

@@ -2,6 +2,7 @@ import UserModel from '@models/base/User';
 import { IUser } from '@interfaces/base/UserInterface'
 import IController from '@interfaces/eva/ControllerInterface';
 import express, { Router } from 'express'
+import authHandler from '@middleware/BaseAuthHandler';
 
 class UserController implements IController {
   private _path: string = '/api/users';
@@ -23,9 +24,11 @@ class UserController implements IController {
   private initRoutes(): void {
     this._router.get(`${this._path}`, this.getUsers);
     this._router.get(`${this._path}/:id`, this.getUserById);
-    this._router.patch(`${this._path}/:id`, this.updateUser);
-    this._router.delete(`${this._path}/:id`, this.deleteUser);
-    this._router.post(`${this._path}`, this.createUser);
+    this._router
+    .all(`${this._path}/*`, authHandler)
+    .patch(`${this._path}/:id`, this.updateUser)
+    .delete(`${this._path}/:id`, this.deleteUser)
+    .post(`${this._path}`, this.createUser);
   }
 
   public getUsers = async (req: express.Request, resp: express.Response): Promise<void> => {
