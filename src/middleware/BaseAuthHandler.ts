@@ -10,6 +10,7 @@ dotenv.config({
 })
  
 async function authHandler(req: IAuthRequest, resp: Response, next: NextFunction) {
+  console.log('auth');
   const cookies = req.cookies;
   if (cookies && cookies.Authorization) {
     const secret = String(process.env.JWT_SECRET);

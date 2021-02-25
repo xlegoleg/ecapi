@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import DB_CONNECTOR from './config/db';
 import App from './app';
 import UserController from '@controllers/base/UserController';
+import AuthController from '@controllers/base/AuthController';
 import CathegoryController from '@controllers/shop/CathegoryController';
 import SpecificationController from '@controllers/shop/SpecificationController';
 import ProductController from '@controllers/shop/ProductController';
@@ -19,8 +20,8 @@ const app = new App([
   new CathegoryController(),
   new ProductController(),
   new SpecificationController(),
-  new CartController()
-
+  new CartController(),
+  new AuthController()
 ], PORT);
 
 DB_CONNECTOR();

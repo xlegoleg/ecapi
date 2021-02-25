@@ -28,7 +28,7 @@ class SpecificationController implements IController {
     .all(`${this._path}/*`, authHandler)
     .patch(`${this._path}/:id`, this.updateSpecification)
     .delete(`${this._path}/:id`, this.deleteSpecification)
-    .post(`${this._path}`, this.createSpecification);
+    .post(`${this._path}/create`, this.createSpecification);
   }
 
   public getSpecifications = async (req: express.Request, resp: express.Response): Promise<void> => {

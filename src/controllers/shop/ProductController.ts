@@ -29,7 +29,7 @@ class ProductController implements IController {
     .all(`${this._path}/*`, authHandler)
     .patch(`${this._path}/:id`, this.updateProduct)
     .delete(`${this._path}/:id`, this.deleteProduct)
-    .post(`${this._path}`, this.createProduct);
+    .post(`${this._path}/create`, this.createProduct);
   }
 
   public getProducts = async (req: express.Request, resp: express.Response): Promise<void> => {

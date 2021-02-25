@@ -28,7 +28,7 @@ class UserController implements IController {
     .all(`${this._path}/*`, authHandler)
     .patch(`${this._path}/:id`, this.updateUser)
     .delete(`${this._path}/:id`, this.deleteUser)
-    .post(`${this._path}`, this.createUser);
+    .post(`${this._path}/create`, this.createUser);
   }
 
   public getUsers = async (req: express.Request, resp: express.Response): Promise<void> => {

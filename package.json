@@ -43,6 +43,9 @@
   "_moduleAliases": {
     "@models": "src/models",
     "@controllers": "src/controllers",
-    "@interfaces": "src/interfaces"
+    "@interfaces": "src/interfaces",
+    "@utils": "src/utils",
+    "@middleware": "src/middleware",
+    "@common": "src/common"
   }
 }

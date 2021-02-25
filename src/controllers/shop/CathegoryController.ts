@@ -28,7 +28,7 @@ class CathegoryController implements IController {
     .all(`${this._path}/*`, authHandler)
     .patch(`${this._path}/:id`, this.updateCathegory)
     .delete(`${this._path}/:id`, this.deleteCathegory)
-    .post(`${this._path}`, this.createCathegory);
+    .post(`${this._path}/create`, this.createCathegory);
   }
 
   public getCathegories = async (req: express.Request, resp: express.Response): Promise<void> => {

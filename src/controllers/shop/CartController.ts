@@ -29,7 +29,7 @@ class CartController implements IController {
     .all(`${this._path}/*`, authHandler)
     .patch(`${this._path}/:id`, this.updateCart)
     .delete(`${this._path}/:id`, this.deleteCart)
-    .post(`${this._path}`, this.createCart)
+    .post(`${this._path}/create`, this.createCart)
     .post(`${this._path}/add-item`, this.addToCart)
     .post(`${this._path}/remove-item`, this.removeFromCart);
   }
