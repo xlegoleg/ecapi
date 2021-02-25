@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import IController from '@interfaces/eva/ControllerInterface';
 import baseErrorHandler from '@middleware/BaseErrorHandler';
 
@@ -27,6 +28,7 @@ class App {
     this.app.use(bodyParser.urlencoded({
       extended: true
     }));
+    this.app.use(cookieParser());
   }
 
   private initMiddleware(): void {

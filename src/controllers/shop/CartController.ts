@@ -4,6 +4,7 @@ import IController from '@interfaces/eva/ControllerInterface';
 import express, { Router } from 'express';
 import { Document, now } from 'mongoose';
 import { convertDateFromTimestamp } from '@utils/dates';
+import authHandler from '@middleware/BaseAuthHandler';
 
 class CartController implements IController {
   private _path: string = '/api/carts';
@@ -24,11 +25,13 @@ class CartController implements IController {
 
   private initRoutes(): void {
     this._router.get(`${this._path}/:id`, this.getCartById);
-    this._router.patch(`${this._path}/:id`, this.updateCart);
-    this._router.delete(`${this._path}/:id`, this.deleteCart);
-    this._router.post(`${this._path}`, this.createCart);
-    this._router.post(`${this._path}/add-item`, this.addToCart);
-    this._router.post(`${this._path}/remove-item`, this.removeFromCart);
+    this._router
+    .all(`${this._path}/*`, authHandler)
+    .patch(`${this._path}/:id`, this.updateCart)
+    .delete(`${this._path}/:id`, this.deleteCart)
+    .post(`${this._path}/create`, this.createCart)
+    .post(`${this._path}/add-item`, this.addToCart)
+    .post(`${this._path}/remove-item`, this.removeFromCart);
   }
 
   public addToCart = async (req: express.Request, resp: express.Response): Promise<void> => {

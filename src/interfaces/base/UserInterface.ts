@@ -1,4 +1,5 @@
 import { Document, ObjectId, Model } from 'mongoose';
+import { ITokenObject } from '@interfaces/eva/TokenObjectInterface';
 export interface IUser extends Document {
   id: ObjectId;
   name: string;
@@ -11,4 +12,5 @@ export interface IUser extends Document {
 
 export interface IUserModel extends Model<IUser> {
   verifyPassword(password: string): Promise<boolean>;
+  getAuthToken(userId: string): ITokenObject;
 }
