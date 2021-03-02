@@ -1,14 +1,14 @@
 import mongoose, { Model, Document } from 'mongoose';
 import ICart from '@interfaces/shop/CartInterface';
-import { convertDateFromTimestamp } from '@utils/dates';
+import { dateWithCurrentTimeZone } from '@utils/dates';
 
 const CartSchema = new mongoose.Schema({
   id: {
     type: mongoose.Types.ObjectId
   },
   last_modified: {
-    type: Date || String,
-    default: convertDateFromTimestamp(Date.now())
+    type: String,
+    default: dateWithCurrentTimeZone()
   },
   status: {
     type: String,

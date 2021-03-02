@@ -7,7 +7,7 @@ export interface IUser extends Document {
   password: string;
   role: string;
   location: string;
-  created: Date;
+  created: string;
 }
 
 export interface IUserModel extends Model<IUser> {

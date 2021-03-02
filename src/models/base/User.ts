@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import { IUser, IUserModel } from '@interfaces/base/UserInterface';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import { dateWithCurrentTimeZone } from '@utils/dates';
 
 dotenv.config({
   path: './config/config.env'
@@ -33,8 +34,8 @@ const UserSchema = new mongoose.Schema<IUser & IUserModel>({
     type: String
   },
   created: {
-    type: Date,
-    default: Date.now()
+    type: String,
+    default: dateWithCurrentTimeZone()
   }
 }, 
 { toJSON: { virtuals: true, versionKey: false }, toObject: { virtuals: true, versionKey: false }

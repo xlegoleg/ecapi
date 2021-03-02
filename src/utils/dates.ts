@@ -1,4 +1,5 @@
-import moment from 'moment';
+import moment from 'moment-timezone';
+import dotenv from 'dotenv';
 
 enum DateFormat {
   backend = 'YYYY-MM-DDTHH:mm:ss.SSSZ',
@@ -13,7 +14,15 @@ enum DateFormat {
   yearMonth = 'YYYY.MM',
 }
 
-const BACKEND_TIMEZONE = 'Europe/Moscow';
+dotenv.config({
+  path: './config/config.env'
+})
+
+const BACKEND_TIMEZONE = String(process.env.TIMEZONE);
+
+function dateWithCurrentTimeZone(format: string = DateFormat.backend): string {
+  return moment.tz(Date.now(), BACKEND_TIMEZONE).format(format);
+}
 
 function convertDateFromTimestamp(date: string | number, toFormat: string = DateFormat.backend,): string {
   return date
@@ -28,5 +37,6 @@ function isDate(str: string): boolean {
 export {
   DateFormat,
   convertDateFromTimestamp,
+  dateWithCurrentTimeZone,
   isDate,
 };
