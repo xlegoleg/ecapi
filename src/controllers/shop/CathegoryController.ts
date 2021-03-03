@@ -1,6 +1,7 @@
 import CathegoryModel from '@models/shop/Cathegory';
 import ICathegory from '@interfaces/shop/CathegoryInterface';
 import IController from '@interfaces/eva/ControllerInterface';
+import IQueryOptions from '@interfaces/eva/QueryOptionsInterface';
 import express, { Router } from 'express';
 import authHandler from '@middleware/BaseAuthHandler';
 
@@ -32,8 +33,14 @@ class CathegoryController implements IController {
   }
 
   public getCathegories = async (req: express.Request, resp: express.Response): Promise<void> => {
+    const queryOptions: IQueryOptions = {
+      page: parseInt(String(req.query?.page)) || 1,
+      perPage: parseInt(String(req.query?.perPage)) || 10
+    }
     try {
-      const cathegories = await this._model.find().exec();
+      const cathegories = await this._model.find()
+                        .skip((queryOptions.page - 1)*queryOptions.perPage)
+                        .limit(queryOptions.perPage).exec();
       resp.status(200).send(cathegories);
     }
     catch(e) {

@@ -8,6 +8,8 @@ import CathegoryController from '@controllers/shop/CathegoryController';
 import SpecificationController from '@controllers/shop/SpecificationController';
 import ProductController from '@controllers/shop/ProductController';
 import CartController from '@controllers/shop/CartController';
+import PostController from '@controllers/blog/PostsController';
+import { dateWithCurrentTimeZone } from '@utils/dates';
 
 dotenv.config({
   path: './config/config.env'
@@ -21,7 +23,8 @@ const app = new App([
   new ProductController(),
   new SpecificationController(),
   new CartController(),
-  new AuthController()
+  new AuthController(),
+  new PostController()
 ], PORT);
 
 DB_CONNECTOR();
