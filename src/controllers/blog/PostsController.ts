@@ -3,6 +3,7 @@ import IController from '@interfaces/eva/ControllerInterface';
 import express, { Router } from 'express';
 import authHandler from '@middleware/BaseAuthHandler';
 import IPost from '@interfaces/blog/PostInterface';
+import IQueryOptions from '@interfaces/eva/QueryOptionsInterface';
 import BaseException from '@common/exceptions/BaseException';
 import BaseMessage from '@common/messages/BaseMessage';
 
@@ -35,8 +36,14 @@ class PostController implements IController {
   }
 
   public getAllPosts = async (req: express.Request, resp: express.Response): Promise<void> => {
+    const queryOptions: IQueryOptions = {
+      page: parseInt(String(req.query?.page)) || 1,
+      perPage: parseInt(String(req.query?.perPage)) || 10
+    }
     try {
-      const posts = await this._model.find().exec();
+      const posts = await this._model.find()
+                          .skip((queryOptions.page - 1)*queryOptions.perPage)
+                          .limit(queryOptions.perPage).exec();
       resp.status(200).send(posts);
     }
     catch(e) {

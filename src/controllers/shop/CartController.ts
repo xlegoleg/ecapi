@@ -2,7 +2,7 @@ import CartModel from '@models/shop/Cart';
 import ICart from '@interfaces/shop/CartInterface';
 import IController from '@interfaces/eva/ControllerInterface';
 import express, { Router } from 'express';
-import { Document, now } from 'mongoose';
+import { Document } from 'mongoose';
 import { dateWithCurrentTimeZone } from '@utils/dates';
 import authHandler from '@middleware/BaseAuthHandler';
 

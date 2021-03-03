@@ -1,6 +1,7 @@
 import ProductModel from '@models/shop/Product';
 import IProduct from '@interfaces/shop/ProductInterface';
 import IController from '@interfaces/eva/ControllerInterface';
+import IQueryOptions from '@interfaces/eva/QueryOptionsInterface';
 import express, { Router } from 'express';
 import authHandler from '@middleware/BaseAuthHandler';
 import BaseMessage from '@common/messages/BaseMessage';
@@ -33,8 +34,14 @@ class ProductController implements IController {
   }
 
   public getProducts = async (req: express.Request, resp: express.Response): Promise<void> => {
+    const queryOptions: IQueryOptions = {
+      page: parseInt(String(req.query?.page)) || 1,
+      perPage: parseInt(String(req.query?.perPage)) || 10
+    }
     try {
-      const products = await this._model.find().exec();
+      const products = await this._model.find()
+                      .skip((queryOptions.page - 1)*queryOptions.perPage)
+                      .limit(queryOptions.perPage).exec();
       resp.status(200).send(products);
     }
     catch(e) {
