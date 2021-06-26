@@ -25,9 +25,9 @@ class PostController implements IController {
   }
 
   private initRoutes() {
-    this._router.get(`${this._path}`, this.getAllPosts);
-    this._router.get(`${this._path}/:id`, this.getPostById);
     this._router.get(`${this._path}/news`, this.getNews);
+    this._router.get(`${this._path}/:id`, this.getPostById);
+    this._router.get(`${this._path}`, this.getAllPosts);
     this._router
     .all(`${this._path}/*`, authHandler)
     .patch(`${this._path}/:id`, this.updatePost)
