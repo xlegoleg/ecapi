@@ -1,8 +1,10 @@
+import cors from 'cors';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import IController from '@interfaces/eva/ControllerInterface';
 import baseErrorHandler from '@middleware/BaseErrorHandler';
+import { corsConfig } from "./config/cors";
 
 class App {
   public app: express.Application;
@@ -29,6 +31,7 @@ class App {
       extended: true
     }));
     this.app.use(cookieParser());
+    this.app.use(cors(corsConfig));
   }
 
   private initMiddleware(): void {
