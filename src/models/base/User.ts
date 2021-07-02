@@ -52,7 +52,7 @@ UserSchema.pre<IUser>("save", async function(next) {
 });
 
 UserSchema.methods.verifyPassword = async function(password: string) {
-  return await bcrypt.compare(password, this.password);
+  return await bcrypt.compare(password, String(this.password));
 };
 
 UserSchema.methods.getAuthToken = function (userId: ObjectId) {

@@ -46,20 +46,20 @@ class AuthController implements IController {
     }
   }
 
-  private loginUser = async (req: express.Request, resp: express.Response): Promise<void> => {
+  private loginUser = async (req: express.Request, resp: express.Response, next: express.NextFunction): Promise<void> => {
     try {
       const userData: IUser = req.body || {}
       const { email, password } = userData;
       const existedUser = await this._model.findOne({ email: email });
       if (existedUser) {
-        const confirmedPass: boolean = await bcrypt.compare(password, existedUser.password);
+        const confirmedPass: boolean = await bcrypt.compare(password, String(existedUser.password));
         if (confirmedPass) {
           this.sendResponseWithToken(existedUser, 200, resp);
         } else {
-          new BaseException(422, `Password for ${email} is not match`);
+          next(new BaseException(422, `Password for ${email} is not match`));
         }
       } else {
-        new BaseException(404, `User with ${email} not found`);
+        next(new BaseException(404, `User with ${email} not found`));
       }
     }
     catch (e) {
@@ -80,9 +80,10 @@ class AuthController implements IController {
   private sendResponseWithToken(user: IUser & IUserModel, status: number, resp: express.Response) {
     const token: ITokenObject = user.getAuthToken(user._id);
     const createCookie = `Authorization=${token.token}; HttpOnly; Max-Age=${token.expiresIn}`;
-    user.password = '';
+    const userToSend = JSON.parse(JSON.stringify(user || {}));
+    delete userToSend["password"]
     resp.setHeader('Set-Cookie', [createCookie]);
-    resp.status(status).send(user);
+    resp.status(status).send(userToSend);
   }
 }
 

@@ -15,8 +15,8 @@ class App {
     this.port = port;
 
     this.initModules();
-    this.initMiddleware();
     this.initControllers(controllers);
+    this.initMiddleware();
   }
 
   private initControllers(controllers: IController[]): void {
