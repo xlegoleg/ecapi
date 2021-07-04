@@ -10,11 +10,11 @@ dotenv.config({
 })
  
 async function authHandler(req: IAuthRequest, resp: Response, next: NextFunction) {
-  const cookies = req.cookies;
-  if (cookies && cookies.Authorization) {
+  const auth = req.headers.Auth || '';
+  if (auth) {
     const secret = String(process.env.JWT_SECRET);
     try {
-      const verificationResponse = jwt.verify(cookies.Authorization, secret) as any
+      const verificationResponse = jwt.verify(String(auth), secret) as any
       const id = verificationResponse.data;
       const user = await UserModel.findById(id);
       if (user) {

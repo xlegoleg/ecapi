@@ -79,11 +79,15 @@ class AuthController implements IController {
 
   private sendResponseWithToken(user: IUser & IUserModel, status: number, resp: express.Response) {
     const token: ITokenObject = user.getAuthToken(user._id);
-    const createCookie = `Authorization=${token.token}; HttpOnly; Max-Age=${token.expiresIn}`;
     const userToSend = JSON.parse(JSON.stringify(user || {}));
     delete userToSend["password"]
-    resp.setHeader('Set-Cookie', [createCookie]);
-    resp.status(status).send(userToSend);
+    resp.status(status).send({
+      user: userToSend,
+      token: {
+        token: token.token,
+        expiresIn: token.expiresIn
+      }
+    });
   }
 }
 
